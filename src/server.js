@@ -3,7 +3,6 @@ import initRoutes from "./routes/init.routes.js";
 import initMiddlewares from "./middlewares/init.middleware.js";
 
 const app = express();
-const test = 'test';
 const PORT = process.env.PORT || 9000;
 
 initMiddlewares(app);
