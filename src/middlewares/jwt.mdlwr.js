@@ -2,13 +2,7 @@ import jwt from "jsonwebtoken";
 
 const jwtOptions = { expiresIn: `28800000` }; // 8h
 
-// si la valeur booleenne de process.env.JWT_SECRET est false alors
-// secret vaudra "T0P_S3CRet" sinon secret vaudra la valeur du fichier .env
 const secret = process.env.JWT_SECRET || "T0P_S3CRet";
-
-// si process.env.JWT_SECRET est null ou undefined alors
-// secret vaudra "T0P_S3CRet" sinon secret vaudra la valeur du fichier .env
-// const secret = process.env.JWT_SECRET ?? "T0P_S3CRet";
 
 const jwtMdlwr = (req, res, next) => {
     const token = req.headers.authorization;

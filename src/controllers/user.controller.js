@@ -5,7 +5,7 @@ import { stringIsFilled } from "../utils/string.utils.js";
 import { hashPass, compareHash } from "../utils/crypto.utils.js";
 
 const create = async (req, res) => {
-    const { email, password, pseudo } = req.body;
+    const { first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, password } = req.body;
 
     if (!email || !isEmail(email)) {
         return res.status(403).json({ message: `Invalid email !` });
@@ -22,8 +22,8 @@ const create = async (req, res) => {
     if (hashError) {
         return res.status(500).json({ message: hashError });
     }
-
-    const response = await UserDB.create(email, hashResult.hashed);
+    const hashedPassword = hashResult.hashed;
+    const response = await UserDB.create(first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword);
     const responseError = response.error;
 
     if (responseError) {
