@@ -7,6 +7,10 @@ import { hashPass, compareHash } from "../utils/crypto.utils.js";
 const create = async (req, res) => {
     const { first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, password } = req.body;
 
+    const result = await UserDB.emailExist(email);
+
+
+
     if (!email || !isEmail(email)) {
         return res.status(403).json({ message: `Invalid email !` });
     }
@@ -23,16 +27,27 @@ const create = async (req, res) => {
         return res.status(500).json({ message: hashError });
     }
     const hashedPassword = hashResult.hashed;
-    const response = await UserDB.create(first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword);
-    const responseError = response.error;
 
-    if (responseError) {
-        return res.status(500).json({ message: responseError });
+    if (result.result >= 1) {
+        return res
+            .status(403)
+            .json({
+                message: `Email already exists`
+            });
+    } else {
+        const response = await UserDB.create(first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword);
+        const responseError = response.error;
+
+        if (responseError) {
+            return res.status(500).json({ message: responseError });
+        }
+
+        const userId = response.result.insertId;
+
+        return res.status(200).json({ message: "User created", user: userId });
     }
 
-    const userId = response.result.insertId;
 
-    return res.status(200).json({ message: "User created", user: userId });
 };
 
 const signIn = async (req, res) => {

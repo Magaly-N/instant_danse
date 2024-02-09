@@ -1,5 +1,14 @@
 import query from "./init.database.js";
 
+const emailExist = async (email) => {
+    const sql = ` SELECT COUNT(*) as count from users where email= ?`;
+    let result = await query(sql, [email]);
+
+    result = result[0].count;
+
+    return { result };
+};
+
 const create = async (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword) => {
     const sql = `
    INSERT INTO users (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword) 
@@ -38,4 +47,4 @@ const signIn = async (email) => {
     }
 };
 
-export const UserDB = { create, signIn };
+export const UserDB = { emailExist, create, signIn };

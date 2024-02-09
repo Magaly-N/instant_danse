@@ -1,4 +1,6 @@
 import mysql from "mysql";
+import dotenv from 'dotenv';
+dotenv.config({ path: __dirname + '../../.env' });
 
 const pool = mysql.createPool({
     connectionLimit: 10000,
