@@ -9,16 +9,16 @@ const emailExist = async (email) => {
     return { result };
 };
 
-const create = async (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword) => {
+const create = async (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword, role) => {
     const sql = `
-   INSERT INTO users (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword) 
+   INSERT INTO users (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword, role) 
    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? )`;
 
     let error = null;
     let result = null;
 
     try {
-        result = await query(sql, [first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword]);
+        result = await query(sql, [first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword, role]);
     }
     catch (e) {
         error = e.message;

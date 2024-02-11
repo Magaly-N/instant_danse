@@ -1,11 +1,12 @@
 import express from 'express';
 import initRoutes from "./routes/init.routes.js";
 import initMiddlewares from "./middlewares/init.middleware.js";
-import dotenv from 'dotenv';
-dotenv.config();
+//import dotenv from 'dotenv';
+//dotenv.config();
 
+const PORT = process.env.PORT || 9000;
+console.log("PORT:", process.env.PORT);
 const app = express();
-const PORT = 3000;
 
 initMiddlewares(app);
 initRoutes(app);
