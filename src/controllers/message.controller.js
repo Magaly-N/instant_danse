@@ -1,5 +1,15 @@
 import { MessageDB } from "../databases/message.database.js";
 
+
+const createMessage = async (req, res) => {
+    const { sender, receiver, content } = req.body;
+
+    const response = await MessageDB.createMessage(sender, receiver, content);
+    const result = response.result;
+
+    return res.status(201).json({ message: "OK", messages: result });
+};
+
 const readMessages = async (req, res) => {
     const response = await MessageDB.readMessages();
     const result = response.result;
@@ -32,13 +42,17 @@ const readAllMessages = async (req, res) => {
     return res.status(200).json({ message: "OK", messages });
 };
 
-const createMessage = async (req, res) => {
-    const { sender, receiver, content } = req.body;
 
-    const response = await MessageDB.createMessage(sender, receiver, content);
-    const result = response.result;
+const updateMessage = async (req, res) => {
+    const { sender, receiver, content, messageId } = req.body;
 
-    return res.status(201).json({ message: "OK", messages: result });
+    const response = await MessageDB.updateMessage(sender, receiver, content, messageId);
+
+    if (response.error) {
+        return res.status(500).json({ message: response.error });
+    }
+
+    return res.status(200).json({ message: `Message number ${messageId} has been edited` });
 };
 
 const deleteOneMessage = async (req, res) => {
@@ -55,23 +69,11 @@ const deleteOneMessage = async (req, res) => {
     }
 };
 
-const updateMessage = async (req, res) => {
-    const { sender, receiver, content, messageId } = req.body;
-
-    const response = await MessageDB.updateMessage(sender, receiver, content, messageId);
-
-    if (response.error) {
-        return res.status(500).json({ message: response.error });
-    }
-
-    return res.status(200).json({ message: `Message number ${messageId} has been edited` });
-};
-
 export const MessageController = {
+    createMessage,
     readMessages,
     readOneMessage,
     readAllMessages,
-    createMessage,
-    deleteOneMessage,
     updateMessage,
+    deleteOneMessage,
 };

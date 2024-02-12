@@ -1,5 +1,15 @@
 import { CategoryWorkshopDB } from "../databases/category.workshop.database.js";
 
+const createCategoryWorkshop = async (req, res) => {
+    const { name, description } = req.body;
+
+    const response = await CategoryWorkshopDB.createCategoryWorkshop(name, description);
+    const result = response.result;
+
+    return res.status(201).json({ message: "OK", categoryWorkshops: result });
+};
+
+
 const readCategoryWorkshops = async (req, res) => {
 
     const response = await CategoryWorkshopDB.readCategoryWorkshops();
@@ -23,21 +33,16 @@ const readOneCategoryWorkshop = async (req, res) => {
     return res.status(200).json({ message: "Request OK", categoryWorkshop });
 };
 
-const readAllCategoryWorkshops = async (req, res) => {
-    const categoryWorkshopResponse = await CategoryWorkshopDB.readAllCategoryWorkshops();
+const updateCategoryWorkshop = async (req, res) => {
+    const { name, description, categoryWorkshopId } = req.body;
 
-    const categoryWorkshops = categoryWorkshopResponse.result;
+    const response = await CategoryWorkshopDB.updateCategoryWorkshop(name, description, categoryWorkshopId);
 
-    return res.status(200).json({ message: "OK", categoryWorkshops });
-};
+    if (response.error) {
+        return res.status(500).json({ message: response.error });
+    }
 
-const createCategoryWorkshop = async (req, res) => {
-    const { name, description } = req.body;
-
-    const response = await CategoryWorkshopDB.createCategoryWorkshop(name, description);
-    const result = response.result;
-
-    return res.status(201).json({ message: "OK", categoryWorkshops: result });
+    return res.status(200).json({ message: `Category Workshop number ${categoryWorkshopId} has been edited` });
 };
 
 const deleteOneCategoryWorkshop = async (req, res) => {
@@ -54,23 +59,10 @@ const deleteOneCategoryWorkshop = async (req, res) => {
     }
 };
 
-const updateCategoryWorkshop = async (req, res) => {
-    const { name, description, categoryWorkshopId } = req.body;
-
-    const response = await CategoryWorkshopDB.updateCategoryWorkshop(name, description, categoryWorkshopId);
-
-    if (response.error) {
-        return res.status(500).json({ message: response.error });
-    }
-
-    return res.status(200).json({ message: `Category Workshop number ${categoryWorkshopId} has been edited` });
-};
-
 export const CategoryWorkshopController = {
+    createCategoryWorkshop,
     readCategoryWorkshops,
     readOneCategoryWorkshop,
-    readAllCategoryWorkshops,
-    createCategoryWorkshop,
-    deleteOneCategoryWorkshop,
     updateCategoryWorkshop,
+    deleteOneCategoryWorkshop,
 };

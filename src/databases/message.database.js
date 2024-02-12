@@ -1,6 +1,25 @@
 // Import du module pour exécuter les requêtes SQL
 import query from "./init.database.js";
 
+// Fonction pour créer un nouveau message
+const createMessage = async (sender, receiver, content) => {
+    const sql = `
+        INSERT INTO messages (sender, receiver, content)
+        VALUES (?, ?, ?)
+    `;
+
+    let error = null;
+    let result = null;
+
+    try {
+        result = await query(sql, [sender, receiver, content]);
+    } catch (e) {
+        error = e.message;
+    } finally {
+        return { error, result };
+    }
+};
+
 // Fonction pour récupérer les 5 premiers messages de la base de données
 const readMessages = async () => {
     const sql = `
@@ -62,18 +81,20 @@ const readAllMessages = async () => {
     }
 };
 
-// Fonction pour créer un nouveau message
-const createMessage = async (sender, receiver, content) => {
+
+// Fonction pour mettre à jour un message en fonction de son ID
+const updateMessage = async (sender, receiver, content, messageId) => {
     const sql = `
-        INSERT INTO messages (sender, receiver, content)
-        VALUES (?, ?, ?)
+        UPDATE messages
+        SET sender = ?, receiver = ?, content = ?
+        WHERE message_id = ?
     `;
 
     let error = null;
     let result = null;
 
     try {
-        result = await query(sql, [sender, receiver, content]);
+        result = await query(sql, [sender, receiver, content, messageId]);
     } catch (e) {
         error = e.message;
     } finally {
@@ -100,32 +121,13 @@ const deleteOneMessage = async (messageId) => {
     }
 };
 
-// Fonction pour mettre à jour un message en fonction de son ID
-const updateMessage = async (sender, receiver, content, messageId) => {
-    const sql = `
-        UPDATE messages
-        SET sender = ?, receiver = ?, content = ?
-        WHERE message_id = ?
-    `;
-
-    let error = null;
-    let result = null;
-
-    try {
-        result = await query(sql, [sender, receiver, content, messageId]);
-    } catch (e) {
-        error = e.message;
-    } finally {
-        return { error, result };
-    }
-};
 
 // Exportation des fonctions pour utilisation dans d'autres parties du code
 export const MessageDB = {
-    updateMessage,
+    createMessage,
     readMessages,
     readOneMessage,
     readAllMessages,
-    createMessage,
+    updateMessage,
     deleteOneMessage
 };

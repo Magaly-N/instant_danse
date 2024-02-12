@@ -1,11 +1,17 @@
 import express from "express";
+import jwt from "../middlewares/jwt.mdlwr.js";
+import checkAdmin from "../middlewares/check-admin.mdlwr.js";
 import { DancerWorkshopController } from "../controllers/dancer.workshop.controller.js";
 
 const initDancerWorkshopRoutes = (app) => {
     const router = express.Router();
 
-    router.post("/create", DancerWorkshopController.createDancerWorkshop);
+    router.post("/create", jwt, checkAdmin, DancerWorkshopController.createDancerWorkshop);
     router.get("/read", DancerWorkshopController.readDancerWorkshops);
+    router.get("/:dancerWorkshopId", DancerWorkshopController.readOneDancerWorkshop);
+    router.get("/readAllDancerWorkshops", DancerWorkshopController.readAllDancerWorkshops);
+    router.put("/:dancerWorkshopId", jwt, checkAdmin, DancerWorkshopController.updateDancerWorkshop);
+    router.delete("/:dancerWorkshopId", jwt, checkAdmin, DancerWorkshopController.deleteOneDancerWorkshop);
 
     app.use("/dancer_workshop", router);
 };

@@ -1,6 +1,25 @@
 // Import du module pour exécuter les requêtes SQL
 import query from "./init.database.js";
 
+// Fonction pour créer une nouvelle catégorie de workshop
+const createCategoryWorkshop = async (name, description) => {
+    const sql = `
+        INSERT INTO category_workshop (name, description)
+        VALUES (?, ?)
+    `;
+
+    let error = null;
+    let result = null;
+
+    try {
+        result = await query(sql, [name, description]);
+    } catch (e) {
+        error = e.message;
+    } finally {
+        return { error, result };
+    }
+};
+
 // Fonction pour récupérer toutes les catégories de workshops
 const readCategoryWorkshops = async () => {
     const sql = `
@@ -41,18 +60,20 @@ const readOneCategoryWorkshop = async (categoryWorkshopId) => {
     }
 };
 
-// Fonction pour créer une nouvelle catégorie de workshop
-const createCategoryWorkshop = async (name, description) => {
+
+// Fonction pour mettre à jour une catégorie de workshop en fonction de son ID
+const updateCategoryWorkshop = async (name, description, categoryWorkshopId) => {
     const sql = `
-        INSERT INTO category_workshop (name, description)
-        VALUES (?, ?)
+        UPDATE category_workshop
+        SET name = ?, description = ?
+        WHERE category_workshop_id = ?
     `;
 
     let error = null;
     let result = null;
 
     try {
-        result = await query(sql, [name, description]);
+        result = await query(sql, [name, description, categoryWorkshopId]);
     } catch (e) {
         error = e.message;
     } finally {
@@ -79,31 +100,12 @@ const deleteOneCategoryWorkshop = async (categoryWorkshopId) => {
     }
 };
 
-// Fonction pour mettre à jour une catégorie de workshop en fonction de son ID
-const updateCategoryWorkshop = async (name, description, categoryWorkshopId) => {
-    const sql = `
-        UPDATE category_workshop
-        SET name = ?, description = ?
-        WHERE category_workshop_id = ?
-    `;
-
-    let error = null;
-    let result = null;
-
-    try {
-        result = await query(sql, [name, description, categoryWorkshopId]);
-    } catch (e) {
-        error = e.message;
-    } finally {
-        return { error, result };
-    }
-};
 
 // Exportation des fonctions pour utilisation dans d'autres parties du code
 export const CategoryWorkshopDB = {
-    updateCategoryWorkshop,
+    createCategoryWorkshop,
     readCategoryWorkshops,
     readOneCategoryWorkshop,
-    createCategoryWorkshop,
+    updateCategoryWorkshop,
     deleteOneCategoryWorkshop
 };

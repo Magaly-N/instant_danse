@@ -11,8 +11,8 @@ const emailExist = async (email) => {
 
 const create = async (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword, role) => {
     const sql = `
-   INSERT INTO users (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword, role) 
-   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? )`;
+   INSERT INTO users (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, password, role) 
+   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )`;
 
     let error = null;
     let result = null;
@@ -47,4 +47,8 @@ const signIn = async (email) => {
     }
 };
 
-export const UserDB = { emailExist, create, signIn };
+export const UserDB = {
+    emailExist,
+    create,
+    signIn
+};
