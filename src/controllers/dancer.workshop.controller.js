@@ -40,14 +40,6 @@ const readOneDancerWorkshop = async (req, res) => {
     return res.status(200).json({ message: "Request OK", dancerWorkshop });
 };
 
-const readAllDancerWorkshops = async (req, res) => {
-    const dancerWorkshopResponse = await DancerWorkshopDB.readAllDancerWorkshops();
-
-    const dancerWorkshops = dancerWorkshopResponse.result;
-
-    return res.status(200).json({ message: "OK", dancerWorkshops });
-};
-
 const updateDancerWorkshop = async (req, res) => {
     const { title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId } = req.body;
 
@@ -81,7 +73,6 @@ export const DancerWorkshopController = {
     createDancerWorkshop,
     readDancerWorkshops,
     readOneDancerWorkshop,
-    readAllDancerWorkshops,
     updateDancerWorkshop,
     deleteOneDancerWorkshop,
 };

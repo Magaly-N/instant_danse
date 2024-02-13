@@ -62,26 +62,6 @@ const readOneDancerWorkshop = async (dancerWorkshopId) => {
     }
 };
 
-// Fonction pour récupérer tous les ateliers de danse avec leurs détails
-const readAllDancerWorkshops = async () => {
-    const sql = `
-        SELECT dancer_workshop_id, title, description, date, hour, duration, city, price, required_dance_level, person_max
-        FROM dancer_workshop
-        ORDER BY date DESC
-    `;
-
-    let error = null;
-    let result = null;
-
-    try {
-        result = await query(sql);
-    } catch (e) {
-        error = e.message;
-    } finally {
-        return { error, result };
-    }
-};
-
 
 // Fonction pour mettre à jour un atelier de danse en fonction de son ID
 const updateDancerWorkshop = async (title, description, date, hour, duration, city, price, required_dance_level, person_max, dancerWorkshopId) => {
@@ -128,7 +108,6 @@ export const DancerWorkshopDB = {
     createDancerWorkshop,
     readDancerWorkshops,
     readOneDancerWorkshop,
-    readAllDancerWorkshops,
     updateDancerWorkshop,
     deleteOneDancerWorkshop
 };

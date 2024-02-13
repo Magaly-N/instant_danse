@@ -9,7 +9,6 @@ const initDancerWorkshopRoutes = (app) => {
     router.post("/create", jwt, checkAdmin, DancerWorkshopController.createDancerWorkshop);
     router.get("/read", DancerWorkshopController.readDancerWorkshops);
     router.get("/:dancerWorkshopId", DancerWorkshopController.readOneDancerWorkshop);
-    router.get("/readAllDancerWorkshops", DancerWorkshopController.readAllDancerWorkshops);
     router.put("/:dancerWorkshopId", jwt, checkAdmin, DancerWorkshopController.updateDancerWorkshop);
     router.delete("/:dancerWorkshopId", jwt, checkAdmin, DancerWorkshopController.deleteOneDancerWorkshop);
 

@@ -10,7 +10,7 @@ const initCategoryWorkshopRoutes = (app) => {
     router.get("/read", CategoryWorkshopController.readCategoryWorkshops);
     router.get("/:categoryWorkshopId", CategoryWorkshopController.readOneCategoryWorkshop);
     router.put("/:categoryWorkshopId", jwt, checkAdmin, CategoryWorkshopController.updateCategoryWorkshop);
-    router.delete("/:categoryWorkshopId", jwt, checkAdmin, CategoryWorkshopController.deleteOneCategoryWorkshop);
+    router.delete("/:categoryWorkshopId", CategoryWorkshopController.deleteOneCategoryWorkshop);
 
     app.use("/category", router);
 };

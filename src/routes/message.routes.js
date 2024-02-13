@@ -9,7 +9,6 @@ const initMessageRoutes = (app) => {
     router.post("/create", jwt, checkAdmin, MessageController.createMessage);
     router.get("/read", MessageController.readMessages);
     router.get("/:messageId", MessageController.readOneMessage);
-    router.get("/readAllMessages", MessageController.readAllMessages);
     router.put("/:messageId", jwt, checkAdmin, MessageController.updateMessage);
     router.delete("/:messageId", jwt, checkAdmin, MessageController.deleteOneMessage);
 

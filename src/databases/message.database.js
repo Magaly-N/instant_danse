@@ -26,7 +26,7 @@ const readMessages = async () => {
         SELECT message_id, sender, receiver, CONCAT(LEFT(content, 100), "...") AS content, date
         FROM messages
         ORDER BY date DESC
-        LIMIT 5
+        LIMIT 10
     `;
 
     let error = null;
@@ -60,27 +60,6 @@ const readOneMessage = async (messageId) => {
         return { error, result };
     }
 };
-
-// Fonction pour récupérer tous les messages avec leurs détails (sender, receiver, content, date)
-const readAllMessages = async () => {
-    const sql = `
-        SELECT message_id, sender, receiver, CONCAT(LEFT(content, 100), "...") AS content, date
-        FROM messages
-        ORDER BY date DESC
-    `;
-
-    let error = null;
-    let result = null;
-
-    try {
-        result = await query(sql);
-    } catch (e) {
-        error = e.message;
-    } finally {
-        return { error, result };
-    }
-};
-
 
 // Fonction pour mettre à jour un message en fonction de son ID
 const updateMessage = async (sender, receiver, content, messageId) => {
@@ -127,7 +106,6 @@ export const MessageDB = {
     createMessage,
     readMessages,
     readOneMessage,
-    readAllMessages,
     updateMessage,
     deleteOneMessage
 };
