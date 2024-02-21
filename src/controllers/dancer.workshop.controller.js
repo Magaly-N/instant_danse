@@ -40,6 +40,28 @@ const readOneDancerWorkshop = async (req, res) => {
     return res.status(200).json({ message: "Request OK", dancerWorkshop });
 };
 
+const createSummaryDancerWorkshop = async (req, res) => {
+    const createSummary = async (req, res) => {
+        try {
+            const response = await DancerWorkshopDB.readOneDancerWorkshop(dancerWorkshopId);
+            const result = response.result;
+
+            const summary = result.map(item => ({
+                title: item.title,
+                date: item.date,
+                hour: item.hours
+            }));
+
+            // Retournez le résumé dans la réponse JSON
+            return res.status(200).json({ message: "Summary created successfully", summary });
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+    };
+
+}
+
 const updateDancerWorkshop = async (req, res) => {
     const { title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId } = req.body;
 
@@ -73,6 +95,7 @@ export const DancerWorkshopController = {
     createDancerWorkshop,
     readDancerWorkshops,
     readOneDancerWorkshop,
+    createSummaryDancerWorkshop,
     updateDancerWorkshop,
     deleteOneDancerWorkshop,
 };

@@ -62,7 +62,6 @@ const readOneDancerWorkshop = async (dancerWorkshopId) => {
     }
 };
 
-
 // Fonction pour mettre à jour un atelier de danse en fonction de son ID
 const updateDancerWorkshop = async (title, description, date, hour, duration, city, price, required_dance_level, person_max, dancerWorkshopId) => {
     const sql = `
