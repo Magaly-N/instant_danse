@@ -3,6 +3,7 @@ import { UserDB } from "../databases/user.database.js";
 import { jwtSign } from "../middlewares/jwt.mdlwr.js";
 import { stringIsFilled } from "../utils/string.utils.js";
 import { hashPass, compareHash } from "../utils/crypto.utils.js";
+import checkAdmin from "../middlewares/check-admin.mdlwr.js";
 
 const create = async (req, res) => {
     const { first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, password, role } = req.body;
@@ -81,10 +82,9 @@ const signIn = async (req, res) => {
     }
 
     const token = jwtSign(userId);
-
     return res
         .status(200)
-        .json({ message: `sign_in_ok`, user: { userId, email, token } });
+        .json({ message: `sign_in_ok`, user: { userId, email, token, role } });
 };
 
 export const UserController = {

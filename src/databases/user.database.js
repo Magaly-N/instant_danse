@@ -29,7 +29,7 @@ const create = async (first_name, last_name, birthday, address, postcode, city, 
 };
 const signIn = async (email) => {
     const sql = `
-  SELECT user_id, email, password
+  SELECT user_id, email, password, role
   FROM users
   WHERE email = ?`;
 
