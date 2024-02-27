@@ -43,7 +43,7 @@ const readDancerWorkshops = async () => {
 };
 
 // Fonction pour récupérer un seul atelier de danse en fonction de son ID
-const readOneDancerWorkshop = async (dancerWorkshopId) => {
+const readOneDancerWorkshop = async (id) => {
     const sql = `
         SELECT title, description, date, hour, duration, city, price, required_dance_level, person_max
         FROM dancer_workshop
@@ -54,7 +54,7 @@ const readOneDancerWorkshop = async (dancerWorkshopId) => {
     let result = null;
 
     try {
-        result = await query(sql, [dancerWorkshopId]);
+        result = await query(sql, [id]);
     } catch (e) {
         error = e.message;
     } finally {

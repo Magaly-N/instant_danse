@@ -74,6 +74,7 @@ const signIn = async (req, res) => {
     }
 
     const userId = user.user_id;
+    const role = user.role;
     const dbPassword = user.password;
 
     const passAreSame = await compareHash(password, dbPassword);

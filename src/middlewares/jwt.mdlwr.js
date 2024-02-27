@@ -18,7 +18,7 @@ const jwtMdlwr = (req, res, next) => {
 
 const jwtVerify = (token) => {
     try {
-        const decoded = jwtVerify(token, secret);
+        const decoded = jwt.verify(token, secret);
         const userId = decoded.data;
         return userId;
     }
