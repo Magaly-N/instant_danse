@@ -12,7 +12,7 @@ const initCategoryWorkshopRoutes = (app) => {
     router.put("/:categoryWorkshopId", jwt, checkAdmin, CategoryWorkshopController.updateCategoryWorkshop);
     router.delete("/:categoryWorkshopId", CategoryWorkshopController.deleteOneCategoryWorkshop);
 
-    app.use("/category", router);
+    app.use("/category_workshop", router);
 };
 
 export default initCategoryWorkshopRoutes;
