@@ -88,7 +88,24 @@ const signIn = async (req, res) => {
         .json({ message: `sign_in_ok`, user: { userId, email, token, role } });
 };
 
+const signUpWorkshop = async (req, res) => {
+    const userId = req.query.userId;
+    const workshopId = req.query.workshopId;
+
+    const response = await UserDB.signUpWorkshop(userId, workshopId);
+
+    const error = response.error; // soit string soit null
+
+    if (error) {
+        return res.status(500).json({ message: error });
+    } else {
+        return res.status(200).json({ message: "Register ok" });
+    }
+};
+
+
 export const UserController = {
     create,
     signIn,
+    signUpWorkshop
 };

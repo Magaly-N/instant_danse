@@ -47,8 +47,26 @@ const signIn = async (email) => {
     }
 };
 
+const signUpWorkshop = async (userId, workshopId) => {
+    const sql = `INSERT INTO user_dancer_workshop (user_id, dancer_workshop_id) VALUES (?,?)`;
+    let error = null;
+    let result = null;
+
+    try {
+        result = await query(sql, [userId, workshopId]);
+    }
+    catch (e) {
+        error = e.message;
+    }
+    finally {
+        return { error, result };
+    }
+
+}
+
 export const UserDB = {
     emailExist,
     create,
-    signIn
+    signIn,
+    signUpWorkshop
 };

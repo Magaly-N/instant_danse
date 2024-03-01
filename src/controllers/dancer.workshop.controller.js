@@ -71,5 +71,5 @@ export const DancerWorkshopController = {
     readDancerWorkshops,
     readOneDancerWorkshop,
     updateDancerWorkshop,
-    deleteOneDancerWorkshop,
+    deleteOneDancerWorkshop
 };
