@@ -8,6 +8,7 @@ const initUserRoutes = (app) => {
     router.post("/sign-up", UserController.create);
     router.post("/sign-in", UserController.signIn);
     router.post("/sign-up-workshop", UserController.signUpWorkshop);
+    router.post("/isRegistered", UserController.isRegistered);
 
     app.use("/users", router);
 };

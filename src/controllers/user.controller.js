@@ -103,9 +103,24 @@ const signUpWorkshop = async (req, res) => {
     }
 };
 
+const isRegistered = async (req, res) => {
+    const userId = req.query.userId;
+    const workshopId = req.query.workshopId;
+
+    const response = await UserDB.isRegistered(userId, workshopId);
+
+    if (response.result >= 1) {
+        return res
+            .status(403)
+            .json({
+                message: `Already registered`
+            });
+    }
+};
 
 export const UserController = {
     create,
     signIn,
-    signUpWorkshop
+    signUpWorkshop,
+    isRegistered
 };

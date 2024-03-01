@@ -64,9 +64,20 @@ const signUpWorkshop = async (userId, workshopId) => {
 
 }
 
+const isRegistered = async (userId, workshopId) => {
+    const sql = `SELECT COUNT(*) AS count FROM user_dancer_workshop WHERE user_id=? AND dancer_workshop_id=?`;
+
+    let result = await query(sql, [userId, workshopId]);
+    result = result[0].count;
+
+    return { result };
+}
+
+
 export const UserDB = {
     emailExist,
     create,
     signIn,
-    signUpWorkshop
+    signUpWorkshop,
+    isRegistered
 };
