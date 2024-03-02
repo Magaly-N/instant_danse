@@ -45,8 +45,24 @@ const create = async (req, res) => {
 
         return res.status(200).json({ message: "User created", user: userId });
     }
+};
 
+const readOneUser = async (req, res) => {
+    const response = await UserDB.readOneUser(req.query.id);
+    const result = response.result;
 
+    const user = {
+        first_name: result[0].first_name,
+        last_name: result[0].last_name,
+        birthday: result[0].birthday,
+        address: result[0].address,
+        postcode: result[0].postcode,
+        city: result[0].city,
+        phone_number: result[0].phone_number,
+        email: result[0].email,
+    };
+
+    return res.status(200).json({ message: "Request OK", user });
 };
 
 const signIn = async (req, res) => {
@@ -111,7 +127,7 @@ const isRegistered = async (req, res) => {
 
     if (response.result >= 1) {
         return res
-            .status(403)
+            .status(409)
             .json({
                 message: `Already registered`
             });
@@ -120,6 +136,7 @@ const isRegistered = async (req, res) => {
 
 export const UserController = {
     create,
+    readOneUser,
     signIn,
     signUpWorkshop,
     isRegistered

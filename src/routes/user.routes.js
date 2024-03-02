@@ -6,6 +6,7 @@ const initUserRoutes = (app) => {
     const router = express.Router();
 
     router.post("/sign-up", UserController.create);
+    router.get("/readOne", UserController.readOneUser);
     router.post("/sign-in", UserController.signIn);
     router.post("/sign-up-workshop", UserController.signUpWorkshop);
     router.post("/isRegistered", UserController.isRegistered);

@@ -27,6 +27,26 @@ const create = async (first_name, last_name, birthday, address, postcode, city, 
         return { error, result };
     }
 };
+
+const readOneUser = async (id) => {
+    const sql = `
+        SELECT first_name, last_name, birthday, address, postcode, city, phone_number, email
+        FROM users
+        WHERE user_id = ?
+    `;
+
+    let error = null;
+    let result = null;
+
+    try {
+        result = await query(sql, [id]);
+    } catch (e) {
+        error = e.message;
+    } finally {
+        return { error, result };
+    }
+};
+
 const signIn = async (email) => {
     const sql = `
   SELECT user_id, email, password, role
@@ -77,6 +97,7 @@ const isRegistered = async (userId, workshopId) => {
 export const UserDB = {
     emailExist,
     create,
+    readOneUser,
     signIn,
     signUpWorkshop,
     isRegistered
