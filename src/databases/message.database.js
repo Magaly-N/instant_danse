@@ -101,7 +101,7 @@ const deleteOneMessage = async (messageId) => {
 };
 
 
-// Exportation des fonctions pour utilisation dans d'autres parties du code
+// Exportation des fonctions dans message.controller
 export const MessageDB = {
     createMessage,
     readMessages,

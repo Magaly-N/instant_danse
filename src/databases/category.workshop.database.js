@@ -101,7 +101,7 @@ const deleteOneCategoryWorkshop = async (categoryWorkshopId) => {
 };
 
 
-// Exportation des fonctions pour utilisation dans d'autres parties du code
+// Exportation des fonctions dans category.workshop.controller
 export const CategoryWorkshopDB = {
     createCategoryWorkshop,
     readCategoryWorkshops,

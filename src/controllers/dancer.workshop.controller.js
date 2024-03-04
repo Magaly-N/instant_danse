@@ -1,27 +1,37 @@
 import { DancerWorkshopDB } from "../databases/dancer.workshop.database.js";
 
+// Fonction pour créer un atelier de danse
 const createDancerWorkshop = async (req, res) => {
+    // Extraction des données de la requête
     const { title, description, date, hour, duration, city, price, requiredDanceLevel, personMax } = req.body;
 
+    // Appel à la fonction de la base de données pour créer un atelier de danse
     const response = await DancerWorkshopDB.createDancerWorkshop(
         title, description, date, hour, duration, city, price, requiredDanceLevel, personMax
     );
     const result = response.result;
 
+    // Retour d'une réponse avec le statut 201 (Créé) et les données de l'atelier de danse créé
     return res.status(201).json({ message: "OK", dancerWorkshops: result });
 };
 
+// Fonction pour récupérer tous les ateliers de danse
 const readDancerWorkshops = async (req, res) => {
+    // Appel à la fonction de la base de données pour récupérer tous les ateliers de danse
     const response = await DancerWorkshopDB.readDancerWorkshops();
     const result = response.result;
 
-    return res.status(200).json({ message: "Request OK", dancerWorkshops: result });
+    // Retour d'une réponse avec le statut 200 (OK) et les données des ateliers de danse
+    return res.status(200).json({ message: "Requête OK", dancerWorkshops: result });
 };
 
+// Fonction pour récupérer un atelier de danse spécifique par son identifiant
 const readOneDancerWorkshop = async (req, res) => {
+    // Appel à la fonction de la base de données pour récupérer un atelier de danse spécifique par son identifiant
     const response = await DancerWorkshopDB.readOneDancerWorkshop(req.query.id);
     const result = response.result;
 
+    // Création d'un objet représentant l'atelier de danse avec des propriétés spécifiques
     const dancerWorkshop = {
         title: result[0].title,
         description: result[0].description,
@@ -34,38 +44,52 @@ const readOneDancerWorkshop = async (req, res) => {
         personMax: result[0].person_max,
     };
 
-    return res.status(200).json({ message: "Request OK", dancerWorkshop });
+    // Retour d'une réponse avec le statut 200 (OK) et les données de l'atelier de danse spécifié
+    return res.status(200).json({ message: "Requête OK", dancerWorkshop });
 };
 
+// Fonction pour mettre à jour un atelier de danse
 const updateDancerWorkshop = async (req, res) => {
+    // Extraction des données de la requête
     const { title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId } = req.body;
 
+    // Appel à la fonction de la base de données pour mettre à jour un atelier de danse
     const response = await DancerWorkshopDB.updateDancerWorkshop(
         title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId
     );
 
+    // Vérification des erreurs lors de la mise à jour
     if (response.error) {
+        // En cas d'erreur, retour d'une réponse avec le statut 500 (Erreur interne du serveur)
         return res.status(500).json({ message: response.error });
     }
 
-    return res.status(200).json({ message: `Dancer Workshop number ${dancerWorkshopId} has been edited` });
+    // En cas de succès, retour d'une réponse avec le statut 200 (OK) et un message indiquant la mise à jour réussie
+    return res.status(200).json({ message: `L'atelier de danse numéro ${dancerWorkshopId} a été modifié` });
 };
 
+// Fonction pour supprimer un atelier de danse par son identifiant
 const deleteOneDancerWorkshop = async (req, res) => {
+    // Extraction de l'identifiant de l'atelier de danse à partir des paramètres de la requête
     const dancerWorkshopId = req.params.dancerWorkshopId;
 
+    // Appel à la fonction de la base de données pour supprimer un atelier de danse
     const response = await DancerWorkshopDB.deleteOneDancerWorkshop(dancerWorkshopId);
 
-    const error = response.error; // soit string soit null
+    // Récupération d'une éventuelle erreur
+    const error = response.error; // soit une chaîne de caractères, soit null
 
+    // Vérification de la présence d'une erreur
     if (error) {
+        // En cas d'erreur, retour d'une réponse avec le statut 500 (Erreur interne du serveur)
         return res.status(500).json({ message: error });
     } else {
-        return res.status(200).json({ message: "Dancer Workshop deleted" });
+        // En cas de succès, retour d'une réponse avec le statut 200 (OK) et un message indiquant la suppression réussie
+        return res.status(200).json({ message: "Atelier de danse supprimé" });
     }
 };
 
-
+// Exportation de l'objet contenant toutes les fonctions du contrôleur des ateliers de danse
 export const DancerWorkshopController = {
     createDancerWorkshop,
     readDancerWorkshops,

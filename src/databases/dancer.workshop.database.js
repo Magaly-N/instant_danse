@@ -102,7 +102,7 @@ const deleteOneDancerWorkshop = async (dancerWorkshopId) => {
 };
 
 
-// Exportation des fonctions pour utilisation dans d'autres parties du code
+// Exportation des fonctions dans dancer.workshop.controller
 export const DancerWorkshopDB = {
     createDancerWorkshop,
     readDancerWorkshops,
