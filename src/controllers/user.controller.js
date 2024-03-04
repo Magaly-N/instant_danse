@@ -8,7 +8,7 @@ import checkAdmin from "../middlewares/check-admin.mdlwr.js";
 // Fonction pour créer un utilisateur
 const create = async (req, res) => {
     // Extraction des données de la requête
-    const { first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, password, role } = req.body;
+    const { firstName, lastName, birthday, address, postCode, city, phoneNumber, danceLevel, email, password, role } = req.body;
 
     // Vérification de l'existence de l'email dans la base de données
     const result = await UserDB.emailExist(email);
@@ -42,7 +42,7 @@ const create = async (req, res) => {
             });
     } else {
         // Création de l'utilisateur dans la base de données
-        const response = await UserDB.create(first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword, role);
+        const response = await UserDB.create(firstName, lastName, birthday, address, postCode, city, phoneNumber, danceLevel, email, hashedPassword, role);
         const responseError = response.error;
 
         if (responseError) {
@@ -55,6 +55,7 @@ const create = async (req, res) => {
     }
 };
 
+// Fonction pour lire les informations de tous les utilisateurs
 const read = async (req, res) => {
     const response = await UserDB.read();
     const result = response.result;
@@ -68,13 +69,13 @@ const readOneUser = async (req, res) => {
     const result = response.result;
 
     const user = {
-        first_name: result[0].first_name,
-        last_name: result[0].last_name,
+        firstName: result[0].first_name,
+        lastName: result[0].last_name,
         birthday: result[0].birthday,
         address: result[0].address,
-        postcode: result[0].postcode,
+        postCode: result[0].postcode,
         city: result[0].city,
-        phone_number: result[0].phone_number,
+        phoneNumber: result[0].phone_number,
         email: result[0].email,
     };
 

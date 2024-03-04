@@ -9,10 +9,10 @@ const initUserRoutes = (app) => {
     // Définition des routes avec les méthodes associées du contrôleur
     router.post("/sign-up", UserController.create);
     router.post("/sign-in", UserController.signIn);
+    router.get("/read", UserController.read);
     router.get("/readOne", UserController.readOneUser);
     router.post("/sign-up-workshop", UserController.signUpWorkshop);
     router.post("/isRegistered", UserController.isRegistered);
-    router.get("/read", UserController.read);
 
     // Utilisation du routeur dans l'application avec le préfixe "/users"
     app.use("/users", router);

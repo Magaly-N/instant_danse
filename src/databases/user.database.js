@@ -11,7 +11,7 @@ const emailExist = async (email) => {
 };
 
 // Fonction pour créer un nouvel utilisateur dans la base de données
-const create = async (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword, role) => {
+const create = async (firstName, lastName, birthday, address, postCode, city, phoneNumber, danceLevel, email, hashedPassword, role) => {
     const sql = `
    INSERT INTO users (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, password, role) 
    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )`;
@@ -21,7 +21,7 @@ const create = async (first_name, last_name, birthday, address, postcode, city, 
 
     try {
         // Exécution de la requête SQL pour créer un nouvel utilisateur
-        result = await query(sql, [first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, hashedPassword, role]);
+        result = await query(sql, [firstName, lastName, birthday, address, postCode, city, phoneNumber, danceLevel, email, hashedPassword, role]);
     }
     catch (e) {
         // Capture de l'erreur en cas d'échec de l'exécution de la requête
@@ -33,24 +33,31 @@ const create = async (first_name, last_name, birthday, address, postcode, city, 
     }
 };
 
+// Fonction asynchrone pour lire les informations de certains champs des utilisateurs depuis la base de données
 const read = async () => {
+    // Requête SQL pour sélectionner les champs spécifiés de la table "users"
     const sql = `
-          SELECT user_id, first_name, last_name, dance_level, email
-          FROM users
-          ORDER BY last_name DESC
-      `;
+        SELECT user_id, first_name, last_name, dance_level, email
+        FROM users
+        ORDER BY last_name DESC
+    `;
 
+    // Initialisation des variables d'erreur et de résultat
     let error = null;
     let result = null;
 
     try {
+        // Exécution de la requête SQL pour récupérer les informations de tous les utilisateurs
         result = await query(sql);
     } catch (e) {
+        // Capture de l'erreur en cas d'échec de l'exécution de la requête
         error = e.message;
     } finally {
+        // Retour d'un objet contenant l'erreur (le cas échéant) et le résultat de la requête
         return { error, result };
     }
 };
+
 
 // Requête pour sélectionner les informations personnelles du compte de l'utilisateur à afficher lorsqu'il est connecté
 const readOneUser = async (id) => {

@@ -9,7 +9,7 @@ const createCategoryWorkshop = async (req, res) => {
     const response = await CategoryWorkshopDB.createCategoryWorkshop(name, description);
     const result = response.result;
 
-    // Retour d'une réponse avec le statut 201 (Créé) et les données de la catégorie d'atelier créée
+    // Retour d'une réponse avec le statut 201 et les données de la catégorie d'atelier créée
     return res.status(201).json({ message: "OK", categoryWorkshops: result });
 };
 

@@ -2,7 +2,7 @@
 import query from "./init.database.js";
 
 // Fonction pour créer un nouvel atelier de danse
-const createDancerWorkshop = async (title, description, date, hour, duration, city, price, required_dance_level, person_max) => {
+const createDancerWorkshop = async (title, description, date, hour, duration, city, price, requireDanceLevel, personMax) => {
     const sql = `
         INSERT INTO dancer_workshop (title, description, date, hour, duration, city, price, required_dance_level, person_max)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
@@ -12,7 +12,7 @@ const createDancerWorkshop = async (title, description, date, hour, duration, ci
     let result = null;
 
     try {
-        result = await query(sql, [title, description, date, hour, duration, city, price, required_dance_level, person_max]);
+        result = await query(sql, [title, description, date, hour, duration, city, price, requireDanceLevel, personMax]);
     } catch (e) {
         error = e.message;
     } finally {
@@ -63,7 +63,7 @@ const readOneDancerWorkshop = async (id) => {
 };
 
 // Fonction pour mettre à jour un atelier de danse en fonction de son ID
-const updateDancerWorkshop = async (title, description, date, hour, duration, city, price, required_dance_level, person_max, dancerWorkshopId) => {
+const updateDancerWorkshop = async (title, description, date, hour, duration, city, price, requireDanceLevel, personMax, dancerWorkshopId) => {
     const sql = `
         UPDATE dancer_workshop
         SET title = ?, description = ?, date = ?, hour = ?, duration = ?, city = ?, price = ?, required_dance_level = ?, person_max = ?
@@ -74,7 +74,7 @@ const updateDancerWorkshop = async (title, description, date, hour, duration, ci
     let result = null;
 
     try {
-        result = await query(sql, [title, description, date, hour, duration, city, price, required_dance_level, person_max, dancerWorkshopId]);
+        result = await query(sql, [title, description, date, hour, duration, city, price, requireDanceLevel, personMax, dancerWorkshopId]);
     } catch (e) {
         error = e.message;
     } finally {
