@@ -10,7 +10,7 @@ const initUserRoutes = (app) => {
     router.post("/sign-up", UserController.create);
     router.post("/sign-in", UserController.signIn);
     router.get("/read", UserController.read);
-    router.get("/readOne", UserController.readOneUser);
+    router.get("/readOneUser", UserController.readOneUser);
     router.post("/sign-up-workshop", UserController.signUpWorkshop);
     router.post("/isRegistered", UserController.isRegistered);
 

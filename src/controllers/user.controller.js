@@ -66,6 +66,7 @@ const read = async (req, res) => {
 // Fonction pour afficher les informations personnelles d'un utilisateur
 const readOneUser = async (req, res) => {
     const response = await UserDB.readOneUser(req.query.id);
+    console.log(response);
     const result = response.result;
 
     const user = {
