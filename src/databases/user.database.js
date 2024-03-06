@@ -62,7 +62,7 @@ const read = async () => {
 // Requête pour sélectionner les informations personnelles du compte de l'utilisateur à afficher lorsqu'il est connecté
 const readOneUser = async (id) => {
     const sql = `
-        SELECT first_name, last_name, birthday, address, postcode, city, phone_number, email
+        SELECT first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email
         FROM users
         WHERE user_id = ?
     `;

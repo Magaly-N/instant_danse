@@ -77,6 +77,7 @@ const readOneUser = async (req, res) => {
         postCode: result[0].postcode,
         city: result[0].city,
         phoneNumber: result[0].phone_number,
+        danceLevel: result[0].dance_level,
         email: result[0].email,
     };
 
