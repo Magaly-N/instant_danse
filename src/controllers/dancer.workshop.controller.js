@@ -3,11 +3,11 @@ import { DancerWorkshopDB } from "../databases/dancer.workshop.database.js";
 // Fonction pour créer un atelier de danse
 const createDancerWorkshop = async (req, res) => {
     // Extraction des données de la requête
-    const { title, description, date, hour, duration, city, price, requiredDanceLevel, personMax } = req.body;
+    const { title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, category_workshop_id } = req.body;
 
     // Appel à la fonction de la base de données pour créer un atelier de danse
     const response = await DancerWorkshopDB.createDancerWorkshop(
-        title, description, date, hour, duration, city, price, requiredDanceLevel, personMax
+        title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, category_workshop_id
     );
     const result = response.result;
 
@@ -42,6 +42,8 @@ const readOneDancerWorkshop = async (req, res) => {
         price: result[0].price,
         requiredDanceLevel: result[0].required_dance_level,
         personMax: result[0].person_max,
+        categoryWorkshopId: result[0].category_workshop_id,
+        name: result[0].name,
     };
 
     // Retour d'une réponse avec le statut 200 (OK) et les données de l'atelier de danse spécifié
@@ -51,11 +53,11 @@ const readOneDancerWorkshop = async (req, res) => {
 // Fonction pour mettre à jour un atelier de danse
 const updateDancerWorkshop = async (req, res) => {
     // Extraction des données de la requête
-    const { title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId } = req.body;
+    const { title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId, categoryWorkshopId } = req.body;
 
     // Appel à la fonction de la base de données pour mettre à jour un atelier de danse
     const response = await DancerWorkshopDB.updateDancerWorkshop(
-        title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId
+        title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId, categoryWorkshopId
     );
 
     // Vérification des erreurs lors de la mise à jour

@@ -9,7 +9,7 @@ const secret = process.env.JWT_SECRET || "T0P_S3CRet";
 // Middleware pour la vérification du token JWT dans les requêtes
 const jwtMdlwr = (req, res, next) => {
     // Récupération du token depuis l'en-tête Authorization de la requête
-    const token = req.headers.authorization;
+    const token = req.headers.authorization.split(" ")[1];
 
     // Vérification et décryptage du token
     const userId = jwtVerify(token);
