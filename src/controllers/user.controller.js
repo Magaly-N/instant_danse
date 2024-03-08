@@ -6,7 +6,7 @@ import { hashPass, compareHash } from "../utils/crypto.utils.js";
 import checkAdmin from "../middlewares/check-admin.mdlwr.js";
 
 // Fonction pour créer un utilisateur
-const create = async (req, res) => {
+const signUp = async (req, res) => {
     // Extraction des données de la requête
     const { firstName, lastName, birthday, address, postCode, city, phoneNumber, danceLevel, email, password, role } = req.body;
 
@@ -42,7 +42,7 @@ const create = async (req, res) => {
             });
     } else {
         // Création de l'utilisateur dans la base de données
-        const response = await UserDB.create(firstName, lastName, birthday, address, postCode, city, phoneNumber, danceLevel, email, hashedPassword, role);
+        const response = await UserDB.signUp(firstName, lastName, birthday, address, postCode, city, phoneNumber, danceLevel, email, hashedPassword, role);
         const responseError = response.error;
 
         if (responseError) {
@@ -180,7 +180,7 @@ const registeredWorkshop = async (req, res) => {
 
 // Exportation de l'objet contenant toutes les fonctions du contrôleur des utilisateurs
 export const UserController = {
-    create,
+    signUp,
     read,
     readOneUser,
     signIn,

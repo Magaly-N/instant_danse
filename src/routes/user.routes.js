@@ -7,8 +7,8 @@ const initUserRoutes = (app) => {
     const router = express.Router();
 
     // Définition des routes avec les méthodes associées du contrôleur
-    router.post("/sign-up", UserController.create);
-    router.post("/sign-in", UserController.signIn);
+    router.post("/signUp", UserController.signUp);
+    router.post("/signIn", UserController.signIn);
     router.get("/read", UserController.read);
     router.get("/readOneUser", UserController.readOneUser);
     router.post("/sign-up-workshop", UserController.signUpWorkshop);

@@ -11,7 +11,7 @@ const emailExist = async (email) => {
 };
 
 // Fonction pour créer un nouvel utilisateur dans la base de données
-const create = async (firstName, lastName, birthday, address, postCode, city, phoneNumber, danceLevel, email, hashedPassword, role) => {
+const signUp = async (firstName, lastName, birthday, address, postCode, city, phoneNumber, danceLevel, email, hashedPassword, role) => {
     const sql = `
    INSERT INTO users (first_name, last_name, birthday, address, postcode, city, phone_number, dance_level, email, password, role) 
    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )`;
@@ -161,7 +161,7 @@ const registeredWorkshop = async (userId) => {
 // Exportation des fonctions dans user.controller
 export const UserDB = {
     emailExist,
-    create,
+    signUp,
     read,
     readOneUser,
     signIn,
