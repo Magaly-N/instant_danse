@@ -136,6 +136,28 @@ const isRegistered = async (userId, workshopId) => {
     return { result };
 }
 
+const registeredWorkshop = async (userId) => {
+    const sql = `
+        SELECT dancer_workshop.dancer_workshop_id, title, description, date, hour, duration, city, price, required_dance_level, person_max, category_workshop_id
+        FROM dancer_workshop
+        INNER JOIN user_dancer_workshop ON dancer_workshop.dancer_workshop_id = user_dancer_workshop.dancer_workshop_id
+        WHERE user_id = ?
+        ORDER BY date DESC
+    `;
+
+    let error = null;
+    let result = null;
+
+    try {
+        result = await query(sql, [userId]);
+    } catch (e) {
+        error = e.message;
+    } finally {
+        return { error, result };
+    }
+};
+
+
 // Exportation des fonctions dans user.controller
 export const UserDB = {
     emailExist,
@@ -144,5 +166,6 @@ export const UserDB = {
     readOneUser,
     signIn,
     signUpWorkshop,
-    isRegistered
+    isRegistered,
+    registeredWorkshop
 };

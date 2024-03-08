@@ -13,6 +13,7 @@ const initUserRoutes = (app) => {
     router.get("/readOneUser", UserController.readOneUser);
     router.post("/sign-up-workshop", UserController.signUpWorkshop);
     router.post("/isRegistered", UserController.isRegistered);
+    router.post("/registeredWorkshop/:userId", UserController.registeredWorkshop);
 
     // Utilisation du routeur dans l'application avec le préfixe "/users"
     app.use("/users", router);

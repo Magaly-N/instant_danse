@@ -165,6 +165,19 @@ const isRegistered = async (req, res) => {
     }
 };
 
+const registeredWorkshop = async (req, res) => {
+    const userId = req.query.userId;
+    const response = await UserDB.registeredWorkshop(userId);
+    const result = response.result;
+    const error = response.error; // soit une chaîne de caractères, soit null
+
+    if (error) {
+        return res.status(500).json({ message: error });
+    } else {
+        return res.status(200).json({ message: "ok", workshop: result });
+    }
+}
+
 // Exportation de l'objet contenant toutes les fonctions du contrôleur des utilisateurs
 export const UserController = {
     create,
@@ -172,5 +185,6 @@ export const UserController = {
     readOneUser,
     signIn,
     signUpWorkshop,
-    isRegistered
+    isRegistered,
+    registeredWorkshop
 };
