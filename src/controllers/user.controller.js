@@ -3,7 +3,6 @@ import { UserDB } from "../databases/user.database.js";
 import { jwtSign } from "../middlewares/jwt.mdlwr.js";
 import { stringIsFilled } from "../utils/string.utils.js";
 import { hashPass, compareHash } from "../utils/crypto.utils.js";
-import checkAdmin from "../middlewares/check-admin.mdlwr.js";
 
 // Fonction pour créer un utilisateur
 const signUp = async (req, res) => {
@@ -44,13 +43,12 @@ const signUp = async (req, res) => {
         // Création de l'utilisateur dans la base de données
         const response = await UserDB.signUp(firstName, lastName, birthday, address, postCode, city, phoneNumber, danceLevel, email, hashedPassword, role);
         const responseError = response.error;
-
+        console.log(response);
         if (responseError) {
             return res.status(500).json({ message: responseError });
         }
 
         const userId = response.result.insertId;
-
         return res.status(200).json({ message: "Utilisateur créé", user: userId });
     }
 };
