@@ -2,7 +2,7 @@
 import query from "./init.database.js";
 
 // Fonction pour créer un nouvel atelier de danse
-const createDancerWorkshop = async (title, description, date, hour, duration, city, price, requireDanceLevel, personMax, categoryWorkshopId) => {
+const createDancerWorkshop = async (title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, categoryWorkshopId) => {
     const sql = `
         INSERT INTO dancer_workshop (title, description, date, hour, duration, city, price, required_dance_level, person_max, category_workshop_id)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)
@@ -12,7 +12,7 @@ const createDancerWorkshop = async (title, description, date, hour, duration, ci
     let result = null;
 
     try {
-        result = await query(sql, [title, description, date, hour, duration, city, price, requireDanceLevel, personMax, categoryWorkshopId]);
+        result = await query(sql, [title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, categoryWorkshopId]);
     } catch (e) {
         error = e.message;
     } finally {
@@ -64,7 +64,7 @@ const readOneDancerWorkshop = async (id) => {
 };
 
 // Fonction pour mettre à jour un atelier de danse en fonction de son ID
-const updateDancerWorkshop = async (title, description, date, hour, duration, city, price, requireDanceLevel, personMax, dancerWorkshopId, categoryWorkshopId) => {
+const updateDancerWorkshop = async (title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId, categoryWorkshopId) => {
     const sql = `
         UPDATE dancer_workshop
         SET title = ?, description = ?, date = ?, hour = ?, duration = ?, city = ?, price = ?, required_dance_level = ?, person_max = ?, category_workshop_id = ?
@@ -75,7 +75,7 @@ const updateDancerWorkshop = async (title, description, date, hour, duration, ci
     let result = null;
 
     try {
-        result = await query(sql, [title, description, date, hour, duration, city, price, requireDanceLevel, personMax, dancerWorkshopId, categoryWorkshopId]);
+        result = await query(sql, [title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId, categoryWorkshopId]);
     } catch (e) {
         error = e.message;
     } finally {
