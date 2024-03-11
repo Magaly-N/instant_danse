@@ -136,6 +136,7 @@ const isRegistered = async (userId, workshopId) => {
     return { result };
 }
 
+// Requête pour récupérer les informations des ateliers auxquels un utilisateur est inscrit
 const registeredWorkshop = async (userId) => {
     const sql = `
         SELECT dancer_workshop.dancer_workshop_id, title, description, date, hour, duration, city, price, required_dance_level, person_max, category_workshop_id

@@ -163,6 +163,7 @@ const isRegistered = async (req, res) => {
     }
 };
 
+// Fonction pour récupérer les ateliers auxquels un utilisateur est inscrit
 const registeredWorkshop = async (req, res) => {
     const userId = req.query.userId;
     const response = await UserDB.registeredWorkshop(userId);
