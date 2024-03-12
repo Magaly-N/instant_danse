@@ -3,11 +3,31 @@ import { DancerWorkshopDB } from "../databases/dancer.workshop.database.js";
 // Fonction pour créer un atelier de danse
 const createDancerWorkshop = async (req, res) => {
     // Extraction des données de la requête
-    const { title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, category_workshop_id } = req.body;
+    const {
+        title,
+        description,
+        date,
+        hour,
+        duration,
+        city,
+        price,
+        requiredDanceLevel,
+        personMax,
+        category_workshop_id,
+    } = req.body;
 
     // Appel à la fonction de la base de données pour créer un atelier de danse
     const response = await DancerWorkshopDB.createDancerWorkshop(
-        title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, category_workshop_id
+        title,
+        description,
+        date,
+        hour,
+        duration,
+        city,
+        price,
+        requiredDanceLevel,
+        personMax,
+        category_workshop_id
     );
     const result = response.result;
 
@@ -22,7 +42,39 @@ const readDancerWorkshops = async (req, res) => {
     const result = response.result;
 
     // Retour d'une réponse avec le statut 200 (OK) et les données des ateliers de danse
-    return res.status(200).json({ message: "Requête OK", dancerWorkshops: result });
+    return res
+        .status(200)
+        .json({ message: "Requête OK", dancerWorkshops: result });
+};
+
+const readThreeWorkshops = async (req, res) => {
+    // Appel à la fonction de la base de données pour récupérer tous les ateliers de danse
+    const response = await DancerWorkshopDB.readThreeWorkshops();
+    const result = response.result;
+
+    // Retour d'une réponse avec le statut 200 (OK) et les données des ateliers de danse
+    return res
+        .status(200)
+        .json({ message: "Requête OK", dancerWorkshops: result });
+};
+
+const readWorkshopsDates = async (req, res) => {
+    // Appel à la fonction de la base de données pour récupérer tous les ateliers de danse
+    const response = await DancerWorkshopDB.readWorkshopsDates();
+    const result = response.result;
+    const dates = result.map((obj) => obj.date);
+
+    // Retour d'une réponse avec le statut 200 (OK) et les données des ateliers de danse
+    return res.status(200).json({ message: "Requête OK", dates: dates });
+};
+
+const readWorkshopsCities = async (req, res) => {
+    // Appel à la fonction de la base de données pour récupérer tous les ateliers de danse
+    const response = await DancerWorkshopDB.readWorkshopsCities();
+    const result = response.result;
+    const cities = result.map((obj) => obj.city);
+    // Retour d'une réponse avec le statut 200 (OK) et les données des ateliers de danse
+    return res.status(200).json({ message: "Requête OK", cities: cities });
 };
 
 // Fonction pour récupérer un atelier de danse spécifique par son identifiant
@@ -53,11 +105,33 @@ const readOneDancerWorkshop = async (req, res) => {
 // Fonction pour mettre à jour un atelier de danse
 const updateDancerWorkshop = async (req, res) => {
     // Extraction des données de la requête
-    const { title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId, categoryWorkshopId } = req.body;
+    const {
+        title,
+        description,
+        date,
+        hour,
+        duration,
+        city,
+        price,
+        requiredDanceLevel,
+        personMax,
+        dancerWorkshopId,
+        categoryWorkshopId,
+    } = req.body;
 
     // Appel à la fonction de la base de données pour mettre à jour un atelier de danse
     const response = await DancerWorkshopDB.updateDancerWorkshop(
-        title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId, categoryWorkshopId
+        title,
+        description,
+        date,
+        hour,
+        duration,
+        city,
+        price,
+        requiredDanceLevel,
+        personMax,
+        dancerWorkshopId,
+        categoryWorkshopId
     );
 
     // Vérification des erreurs lors de la mise à jour
@@ -67,7 +141,9 @@ const updateDancerWorkshop = async (req, res) => {
     }
 
     // En cas de succès, retour d'une réponse avec le statut 200 (OK) et un message indiquant la mise à jour réussie
-    return res.status(200).json({ message: `L'atelier de danse numéro ${dancerWorkshopId} a été modifié` });
+    return res.status(200).json({
+        message: `L'atelier de danse numéro ${dancerWorkshopId} a été modifié`,
+    });
 };
 
 // Fonction pour supprimer un atelier de danse par son identifiant
@@ -76,7 +152,9 @@ const deleteOneDancerWorkshop = async (req, res) => {
     const dancerWorkshopId = req.params.dancerWorkshopId;
 
     // Appel à la fonction de la base de données pour supprimer un atelier de danse
-    const response = await DancerWorkshopDB.deleteOneDancerWorkshop(dancerWorkshopId);
+    const response = await DancerWorkshopDB.deleteOneDancerWorkshop(
+        dancerWorkshopId
+    );
 
     // Récupération d'une éventuelle erreur
     const error = response.error; // soit une chaîne de caractères, soit null
@@ -97,5 +175,8 @@ export const DancerWorkshopController = {
     readDancerWorkshops,
     readOneDancerWorkshop,
     updateDancerWorkshop,
-    deleteOneDancerWorkshop
+    deleteOneDancerWorkshop,
+    readWorkshopsCities,
+    readWorkshopsDates,
+    readThreeWorkshops,
 };

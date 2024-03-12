@@ -9,11 +9,29 @@ const initDancerWorkshopRoutes = (app) => {
     const router = express.Router();
 
     // Définition des routes avec les méthodes associées du contrôleur
-    router.post("/create", jwt, checkAdmin, DancerWorkshopController.createDancerWorkshop);
+    router.post(
+        "/create",
+        jwt,
+        checkAdmin,
+        DancerWorkshopController.createDancerWorkshop
+    );
     router.get("/read", DancerWorkshopController.readDancerWorkshops);
+    router.get("/readThree", DancerWorkshopController.readThreeWorkshops);
+    router.get("/readDates", DancerWorkshopController.readWorkshopsDates);
+    router.get("/readCities", DancerWorkshopController.readWorkshopsCities);
     router.get("/readOne", DancerWorkshopController.readOneDancerWorkshop);
-    router.put("/update/:dancerWorkshopId", jwt, checkAdmin, DancerWorkshopController.updateDancerWorkshop);
-    router.delete("/delete/:dancerWorkshopId", jwt, checkAdmin, DancerWorkshopController.deleteOneDancerWorkshop);
+    router.put(
+        "/update/:dancerWorkshopId",
+        jwt,
+        checkAdmin,
+        DancerWorkshopController.updateDancerWorkshop
+    );
+    router.delete(
+        "/delete/:dancerWorkshopId",
+        jwt,
+        checkAdmin,
+        DancerWorkshopController.deleteOneDancerWorkshop
+    );
 
     // Utilisation du routeur dans l'application avec le préfixe "/dancer_workshop"
     app.use("/dancer_workshop", router);

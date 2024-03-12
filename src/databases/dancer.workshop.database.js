@@ -2,7 +2,18 @@
 import query from "./init.database.js";
 
 // Fonction pour créer un nouvel atelier de danse
-const createDancerWorkshop = async (title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, categoryWorkshopId) => {
+const createDancerWorkshop = async (
+    title,
+    description,
+    date,
+    hour,
+    duration,
+    city,
+    price,
+    requiredDanceLevel,
+    personMax,
+    categoryWorkshopId
+) => {
     const sql = `
         INSERT INTO dancer_workshop (title, description, date, hour, duration, city, price, required_dance_level, person_max, category_workshop_id)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)
@@ -12,7 +23,18 @@ const createDancerWorkshop = async (title, description, date, hour, duration, ci
     let result = null;
 
     try {
-        result = await query(sql, [title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, categoryWorkshopId]);
+        result = await query(sql, [
+            title,
+            description,
+            date,
+            hour,
+            duration,
+            city,
+            price,
+            requiredDanceLevel,
+            personMax,
+            categoryWorkshopId,
+        ]);
     } catch (e) {
         error = e.message;
     } finally {
@@ -20,14 +42,70 @@ const createDancerWorkshop = async (title, description, date, hour, duration, ci
     }
 };
 
-
 // Fonction pour récupérer les 5 premiers ateliers de danse de la base de données
+
+const readThreeWorkshops = async () => {
+    const sql = `
+        SELECT dancer_workshop_id, title, description, date, hour, duration, city, price, required_dance_level, person_max, category_workshop_id
+        FROM dancer_workshop
+        ORDER BY date DESC
+        LIMIT 4
+    `;
+
+    let error = null;
+    let result = null;
+
+    try {
+        result = await query(sql);
+    } catch (e) {
+        error = e.message;
+    } finally {
+        return { error, result };
+    }
+};
 const readDancerWorkshops = async () => {
     const sql = `
         SELECT dancer_workshop_id, title, description, date, hour, duration, city, price, required_dance_level, person_max, category_workshop_id
         FROM dancer_workshop
         ORDER BY date DESC
-        LIMIT 5
+    `;
+
+    let error = null;
+    let result = null;
+
+    try {
+        result = await query(sql);
+    } catch (e) {
+        error = e.message;
+    } finally {
+        return { error, result };
+    }
+};
+
+const readWorkshopsDates = async () => {
+    const sql = `
+        SELECT DISTINCT date
+        FROM dancer_workshop
+        ORDER BY date ASC
+    `;
+
+    let error = null;
+    let result = null;
+
+    try {
+        result = await query(sql);
+    } catch (e) {
+        error = e.message;
+    } finally {
+        return { error, result };
+    }
+};
+
+const readWorkshopsCities = async () => {
+    const sql = `
+        SELECT DISTINCT city
+        FROM dancer_workshop
+        ORDER BY city ASC
     `;
 
     let error = null;
@@ -64,7 +142,19 @@ const readOneDancerWorkshop = async (id) => {
 };
 
 // Fonction pour mettre à jour un atelier de danse en fonction de son ID
-const updateDancerWorkshop = async (title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId, categoryWorkshopId) => {
+const updateDancerWorkshop = async (
+    title,
+    description,
+    date,
+    hour,
+    duration,
+    city,
+    price,
+    requiredDanceLevel,
+    personMax,
+    dancerWorkshopId,
+    categoryWorkshopId
+) => {
     const sql = `
         UPDATE dancer_workshop
         SET title = ?, description = ?, date = ?, hour = ?, duration = ?, city = ?, price = ?, required_dance_level = ?, person_max = ?, category_workshop_id = ?
@@ -75,7 +165,19 @@ const updateDancerWorkshop = async (title, description, date, hour, duration, ci
     let result = null;
 
     try {
-        result = await query(sql, [title, description, date, hour, duration, city, price, requiredDanceLevel, personMax, dancerWorkshopId, categoryWorkshopId]);
+        result = await query(sql, [
+            title,
+            description,
+            date,
+            hour,
+            duration,
+            city,
+            price,
+            requiredDanceLevel,
+            personMax,
+            dancerWorkshopId,
+            categoryWorkshopId,
+        ]);
     } catch (e) {
         error = e.message;
     } finally {
@@ -102,12 +204,14 @@ const deleteOneDancerWorkshop = async (dancerWorkshopId) => {
     }
 };
 
-
 // Exportation des fonctions dans dancer.workshop.controller
 export const DancerWorkshopDB = {
     createDancerWorkshop,
     readDancerWorkshops,
     readOneDancerWorkshop,
     updateDancerWorkshop,
-    deleteOneDancerWorkshop
+    deleteOneDancerWorkshop,
+    readWorkshopsCities,
+    readWorkshopsDates,
+    readThreeWorkshops,
 };
