@@ -48,7 +48,7 @@ const readDancerWorkshops = async (req, res) => {
 };
 
 const readThreeWorkshops = async (req, res) => {
-    // Appel à la fonction de la base de données pour récupérer tous les ateliers de danse
+    // Appel à la fonction de la base de données pour récupérer tous les 4  prochains ateliers de danse à venir
     const response = await DancerWorkshopDB.readThreeWorkshops();
     const result = response.result;
 
