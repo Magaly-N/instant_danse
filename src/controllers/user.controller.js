@@ -176,6 +176,60 @@ const registeredWorkshop = async (req, res) => {
         return res.status(200).json({ message: "ok", workshop: result });
     }
 }
+const updateUser = async (req, res) => {
+    // Extraction des données de la requête
+    const { user } = req.body;
+
+    const address = user.address;
+    const postCode = user.postCode;
+    const city = user.city;
+    const phoneNumber = user.phoneNumber;
+    const danceLevel = user.danceLevel;
+    const email = user.email;
+    const password = user.password;
+    const userId = user.userId;
+
+    // Validation de l'email
+    if (!email || !isEmail(email)) {
+        return res.status(403).json({ message: `Email invalide !` });
+    }
+
+    // Validation du mot de passe
+    if (!password || password.length <= 4) {
+        return res
+            .status(403)
+            .json({ message: `Le mot de passe doit contenir au moins 5 caractères` });
+    }
+
+    // Hachage du mot de passe
+    const hashResult = await hashPass(password);
+    const hashError = hashResult.error;
+    if (hashError) {
+        return res.status(500).json({ message: hashError });
+    }
+    const hashedPassword = hashResult.hashed;
+
+    // Création de l'utilisateur dans la base de données
+    const response = await UserDB.updateUser(
+        address,
+        postCode,
+        city,
+        phoneNumber,
+        danceLevel,
+        email,
+        hashedPassword,
+        userId
+    );
+    const responseError = response.error;
+    console.log(response);
+    if (responseError) {
+        return res.status(500).json({ message: responseError });
+    }
+
+    return res.status(200).json({ message: "Utilisateur modifié" });
+};
+
+
 
 // Exportation de l'objet contenant toutes les fonctions du contrôleur des utilisateurs
 export const UserController = {
@@ -185,5 +239,6 @@ export const UserController = {
     signIn,
     signUpWorkshop,
     isRegistered,
-    registeredWorkshop
+    registeredWorkshop,
+    updateUser
 };

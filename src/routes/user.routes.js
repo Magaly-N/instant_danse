@@ -1,4 +1,5 @@
 import express from "express";
+import jwt from "../middlewares/jwt.mdlwr.js";
 import { UserController } from "../controllers/user.controller.js";
 
 // Fonction pour initialiser les routes liées aux utilisateurs dans l'application Express
@@ -14,6 +15,7 @@ const initUserRoutes = (app) => {
     router.post("/sign-up-workshop", UserController.signUpWorkshop);
     router.post("/isRegistered", UserController.isRegistered);
     router.get("/registeredWorkshop", UserController.registeredWorkshop);
+    router.put("/updateUser", jwt, UserController.updateUser);
 
     // Utilisation du routeur dans l'application avec le préfixe "/users"
     app.use("/users", router);
