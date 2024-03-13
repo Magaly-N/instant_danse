@@ -175,8 +175,8 @@ const updateDancerWorkshop = async (
             price,
             requiredDanceLevel,
             personMax,
-            dancerWorkshopId,
             categoryWorkshopId,
+            dancerWorkshopId,
         ]);
     } catch (e) {
         error = e.message;

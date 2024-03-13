@@ -23,7 +23,6 @@ const initDancerWorkshopRoutes = (app) => {
     router.put(
         "/update/:dancerWorkshopId",
         jwt,
-        checkAdmin,
         DancerWorkshopController.updateDancerWorkshop
     );
     router.delete(

@@ -105,19 +105,18 @@ const readOneDancerWorkshop = async (req, res) => {
 // Fonction pour mettre à jour un atelier de danse
 const updateDancerWorkshop = async (req, res) => {
     // Extraction des données de la requête
-    const {
-        title,
-        description,
-        date,
-        hour,
-        duration,
-        city,
-        price,
-        requiredDanceLevel,
-        personMax,
-        dancerWorkshopId,
-        categoryWorkshopId,
-    } = req.body;
+    const { workshop } = req.body;
+    const title = workshop.title;
+    const description = workshop.description;
+    const date = workshop.date;
+    const hour = workshop.hour;
+    const duration = workshop.duration;
+    const city = workshop.city;
+    const price = workshop.price;
+    const requiredDanceLevel = workshop.requiredDanceLevel;
+    const personMax = workshop.personMax;
+    const dancerWorkshopId = workshop.dancerWorkshopId;
+    const categoryWorkshopId = workshop.categoryWorkshopId;
 
     // Appel à la fonction de la base de données pour mettre à jour un atelier de danse
     const response = await DancerWorkshopDB.updateDancerWorkshop(
