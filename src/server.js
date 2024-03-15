@@ -3,7 +3,7 @@ import initRoutes from "./routes/init.routes.js";
 import initMiddlewares from "./middlewares/init.middleware.js";
 
 // Port sur lequel le serveur écoutera les connexions
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 console.log("PORT:", process.env.PORT);
 
 // Création de l'application Express
