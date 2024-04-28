@@ -20,8 +20,16 @@ const signUp = async (req, res) => {
     // Validation du mot de passe
     if (!password || password.length <= 4) {
         return res
-            .status(403)
-            .json({ message: `Le mot de passe doit contenir au moins 5 caractères` });
+            .status(400)
+            .json({ message: `Le mot de passe doit contenir au moins 5 caractères, une lettre majuscule et un chiffre` });
+    } else if (!/[A-Z]/.test(password)) {
+        return res
+            .status(400)
+            .json({ message: `Le mot de passe doit contenir au moins 5 caractères, une lettre majuscule et un chiffre` });
+    } else if (!/\d/.test(password)) {
+        return res
+            .status(400)
+            .json({ message: `Le mot de passe doit contenir au moins 5 caractères, une lettre majuscule et un chiffre` });
     }
 
     // Hachage du mot de passe

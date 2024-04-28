@@ -24,5 +24,12 @@ const query = (sql, values = []) => {
     });
 };
 
-// Exportation de la fonction query  pour créer les différentes requêtes pour le user, les messages, les ateliers et les catégories de style de danse
-export default query;
+// Exportation de la fonction query pour créer les différentes requêtes pour le user, les messages, les ateliers et les catégories de style de danse
+export default async (sql, values = []) => {
+    try {
+        return await query(sql, values);
+    } catch (error) {
+        console.error("Erreur de base de données :", error);
+        throw new Error("Une erreur est survenue lors de l'exécution de la requête SQL");
+    }
+};
