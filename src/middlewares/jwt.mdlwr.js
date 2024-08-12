@@ -41,7 +41,6 @@ const jwtVerify = (token) => {
 };
 
 // Fonction pour créer un nouveau token JWT
-export const jwtSign = (data) => jwt.sign({ data }, secret, jwtOptions);
+export const jwtSign = (data) => jwt.sign({ data }, secret, jwtOptions); // Exportation de la fonction de création de token
 
-// Exportation du middleware et de la fonction de création de token
-export default jwtMdlwr;
+export default jwtMdlwr; // Exportation du middleware
